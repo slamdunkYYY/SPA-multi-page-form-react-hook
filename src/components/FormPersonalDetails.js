@@ -1,76 +1,70 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-export class FormPersonalDetails extends Component {
-  continue = e => {
+const FormPersonalDetails = (props) => {
+  const { handleChange, nextStep, prevStep, values } = props
+  const continuePage = e => {
     e.preventDefault();
-    this.props.nextStep();
+    nextStep();
   };
 
-  back = e => {
+  const backPage = e => {
     e.preventDefault();
-    this.props.prevStep();
+    prevStep();
   };
-
-  render() {
-    const { values, handleChange } = this.props;
-    return (
-      <MuiThemeProvider>
-        <>
-          <Dialog
-            open
+  return (
+      <>
+        <Dialog
+          open
+          fullWidth
+          maxWidth='sm'
+        >
+          <AppBar title="Enter Personal Details" />
+          <TextField
+            placeholder="Enter Your Occupation"
+            label="Occupation"
+            name="occupation"
+            onChange={handleChange}
+            margin="normal"
             fullWidth
-            maxWidth='sm'
-          >
-            <AppBar title="Enter Personal Details" />
-            <TextField
-              placeholder="Enter Your Occupation"
-              label="Occupation"
-              onChange={handleChange('occupation')}
-              defaultValue={values.occupation}
-              margin="normal"
-              fullWidth
-            />
-            <br />
-            <TextField
-              placeholder="Enter Your City"
-              label="City"
-              onChange={handleChange('city')}
-              defaultValue={values.city}
-              margin="normal"
-              fullWidth
-            />
-            <br />
-            <TextField
-              placeholder="Enter Your Bio"
-              label="Bio"
-              onChange={handleChange('bio')}
-              defaultValue={values.bio}
-              margin="normal"
-              fullWidth
-            />
-            <br />
+          />
+          <br />
+          <TextField
+            placeholder="Enter Your City"
+            label="City"
+            name="city"
+            onChange={handleChange}
+            margin="normal"
+            fullWidth
+          />
+          <br />
+          <TextField
+            placeholder="Enter Your Bio"
+            label="Bio"
+            name="bio"
+            onChange={handleChange}
+            margin="normal"
+            fullWidth
+          />
+          <br />
 
-            <Button
-              color="secondary"
-              variant="contained"
-              onClick={this.back}
-            >Back</Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={backPage}
+          >Back</Button>
 
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={this.continue}
-            >Continue</Button>
-          </Dialog>
-        </>
-      </MuiThemeProvider>
-    );
-  }
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={continuePage}
+          >Continue</Button>
+        </Dialog>
+      </>
+  )
 }
 
 export default FormPersonalDetails;
